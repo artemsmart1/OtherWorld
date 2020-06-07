@@ -20,10 +20,10 @@ public class MainActivity extends AppCompatActivity {
     TextView txt_skip;
 
     @OnClick({R.id.btn_login)
-    void login_user(){
+ //   void login_user(){
 
       //  final intent intent = new intent (this, Account)
-    }
+    //}
 }
 
     @Override
