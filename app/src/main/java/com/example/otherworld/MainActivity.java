@@ -84,25 +84,30 @@ public class MainActivity extends AppCompatActivity {
                 }
 
         }
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
         firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-        if(user != null)//уже залогинин
+        authStateListener= FirebaseAuth1 ->
         {
-            Intent intent = new Intent(this,HomeActivity.class);
-            intent.putExtra(Common.IS_LOGIN,true);
-            startActivity(intent);
-            finish();
-        }
-        else
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if(user != null)//уже залогинин
+            {
+                Intent intent = new Intent(this,HomeActivity.class);
+                intent.putExtra(Common.IS_LOGIN,true);
+                startActivity(intent);
+                finish();
+            }
+            else
             {
                 setContentView(R.layout.activity_main);
                 ButterKnife.bind(MainActivity.this);
             }
+        } ;
+
 
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
