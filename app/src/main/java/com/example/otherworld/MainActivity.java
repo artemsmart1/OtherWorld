@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -84,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(this,"Не удалось войти",Toast.LENGTH_SHORT).show();
                 }
+
         }
     }
 
