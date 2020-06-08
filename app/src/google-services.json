@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "878647496634",
+    "firebase_url": "https://otherworld-4f491.firebaseio.com",
+    "project_id": "otherworld-4f491",
+    "storage_bucket": "otherworld-4f491.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878647496634:android:61f49736f50901b8bb9783",
+        "android_client_info": {
+          "package_name": "com.example.otherworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878647496634-pd5vhft9h8pthf380nvio9al7lfab4ge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.otherworld",
+            "certificate_hash": "175dd4d32f7f4b9d55060bad202247ba19649b20"
+          }
+        },
+        {
+          "client_id": "878647496634-f51k4sh341tj5ckbka00k1nfbiejgrqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQbiBcBsT9g3NVIXV7qju-z2VEaMKAQjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878647496634-f51k4sh341tj5ckbka00k1nfbiejgrqh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
