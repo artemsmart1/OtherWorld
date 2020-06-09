@@ -4,16 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.otherworld.Common.Common;
 import com.example.otherworld.Fragments.GamesFragment;
 import com.example.otherworld.Fragments.HomeFragment;
+import com.example.otherworld.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -21,10 +28,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Collection;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
 
     CollectionReference userRef;
 
+    AlertDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +51,14 @@ public class HomeActivity extends AppCompatActivity {
 
         //Init
         userRef = FirebaseFirestore.getInstance().collection("User");
+        dialog = new SpotsDialog.Builder().setContext(this).setCancelable(false).build();
 
         //Проверка сети
         if(getIntent() != null){
             boolean isLogin = getIntent().getBooleanExtra(Common.IS_LOGIN,false);
             if(isLogin){
                 //проверяем существование юзера
+               dialog.show();
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 DocumentReference currentUser = userRef.document(user.getPhoneNumber());
                 currentUser.get()
@@ -56,8 +66,11 @@ public class HomeActivity extends AppCompatActivity {
                             if (task.isSuccessful()){
                                 DocumentSnapshot userSnapShot = task.getResult();
                                 if(!userSnapShot.exists()){
+
                                     showUpdateDialog(user.getPhoneNumber());
                                 }
+                                if(dialog.isShowing())
+                                    dialog.dismiss();
 
                             }
                         });
@@ -76,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
                 return loadFragment(fragment);
             }
         });
-
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -88,5 +101,52 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void showUpdateDialog(String phoneNumber) {
+
+
+        //Создаю диалог
+        bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setTitle("Последний шаг");
+        bottomSheetDialog.setCanceledOnTouchOutside(false);
+        bottomSheetDialog.setCancelable(false);
+        View sheetView = getLayoutInflater().inflate(R.layout.layout_update_information,null);
+
+        Button btn_update = (Button)sheetView.findViewById(R.id.btn_update);
+        TextInputEditText edt_name = (TextInputEditText)sheetView.findViewById(R.id.edt_name);
+        TextInputEditText edt_address = (TextInputEditText)sheetView.findViewById(R.id.edt_address);
+
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!dialog.isShowing())
+                    dialog.show();
+
+                User user = new User(edt_name.getText().toString(),
+                        edt_address.getText().toString(), phoneNumber);
+                userRef.document(phoneNumber)
+                        .set(user)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                bottomSheetDialog.dismiss();
+                                if(dialog.isShowing())
+                                    dialog.dismiss();
+
+                                Toast.makeText(HomeActivity.this, "Спасибо", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        bottomSheetDialog.dismiss();
+                        if(dialog.isShowing())
+                            dialog.dismiss();
+                        Toast.makeText(HomeActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+        });
+        bottomSheetDialog.setContentView(sheetView);
+        bottomSheetDialog.show();
+
     }
 }

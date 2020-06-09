@@ -2,4 +2,9 @@
     <string name="app_name">OtherWorld</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="Your_name">Ваше имя</string>
+    <string name="Your_address">Ваш адрес</string>
+    <string name="Update">Обновить данные</string>
+
 </resources>
