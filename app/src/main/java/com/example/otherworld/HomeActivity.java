@@ -69,6 +69,11 @@ public class HomeActivity extends AppCompatActivity {
 
                                     showUpdateDialog(user.getPhoneNumber());
                                 }
+                                else { //Если юзер уже в системе
+                                    Common.currentUser = userSnapShot.toObject(User.class);
+                                    bottomNavigationView.setSelectedItemId(R.id.action_home);
+
+                                }
                                 if(dialog.isShowing())
                                     dialog.dismiss();
 
@@ -89,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
                 return loadFragment(fragment);
             }
         });
-        bottomNavigationView.setSelectedItemId(R.id.action_home);
+
     }
 
     private boolean loadFragment(Fragment fragment) {
@@ -100,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
         return false;
     }
 
-    private void showUpdateDialog(String phoneNumber) {
+    private void showUpdateDialog(final String phoneNumber) {
 
 
         //Создаю диалог
@@ -120,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
                 if(!dialog.isShowing())
                     dialog.show();
 
-                User user = new User(edt_name.getText().toString(),
+                final User user = new User(edt_name.getText().toString(),
                         edt_address.getText().toString(), phoneNumber);
                 userRef.document(phoneNumber)
                         .set(user)
@@ -130,6 +135,8 @@ public class HomeActivity extends AppCompatActivity {
                                 bottomSheetDialog.dismiss();
                                 if(dialog.isShowing())
                                     dialog.dismiss();
+
+                                Common.currentUser = user;
 
                                 Toast.makeText(HomeActivity.this, "Спасибо", Toast.LENGTH_SHORT).show();
                             }

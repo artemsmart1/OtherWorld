@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="1dp"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:cardCornerRadius="8dp">
+
+        <ImageView
+            android:id="@+id/image_look_book"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="matrix" />
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

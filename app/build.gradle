@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.example.otherworld"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
 
@@ -34,24 +34,24 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.google.firebase:firebase-firestore:17.1.2'
-    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-firestore:21.4.3'
+    implementation 'com.google.firebase:firebase-messaging:20.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'com.firebaseui:firebase-ui-auth:5.1.0'
-    implementation 'com.android.support:design:29.0.0'
-    implementation 'com.android.support:appcompat-v7:29.0.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
-    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+    implementation 'com.jakewharton:butterknife:10.2.1'
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
     implementation 'com.ss.bannerslider:bannerslider:2.0.0'
+    implementation 'com.shuhart.stepview:stepview:1.5.1'
+    implementation 'com.jaredrummler:material-spinner:1.3.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.android.support:palette-v7:27.0.0'
-    implementation 'com.android.support:recyclerview-v7:27.0.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.5'
 
 
