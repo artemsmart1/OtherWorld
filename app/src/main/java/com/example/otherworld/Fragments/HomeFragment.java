@@ -140,7 +140,6 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
             loadLookBook();
         }
 
-
         return view;
     }
 
@@ -192,6 +191,7 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
         layout_user_information.setVisibility(View.VISIBLE);
         txt_user_name.setText(Common.currentUser.getName());
     }
+
 
     @Override
     public void onBannerLoadSuccess(List<Banner> banners) {

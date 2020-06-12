@@ -1,6 +1,5 @@
 package com.example.otherworld.Adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,66 +13,74 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.otherworld.Common.Common;
 import com.example.otherworld.Interface.IRecyclerItemSelectedListener;
-import com.example.otherworld.Model.Club;
+import com.example.otherworld.Model.Gamezone;
 import com.example.otherworld.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyClubAdapter extends RecyclerView.Adapter<MyClubAdapter.MyViewHolder> {
+import  android.content.Context;
+
+public class MyGamezoneAdapter extends RecyclerView.Adapter<MyGamezoneAdapter.MyViewHolder> {
 
     Context context;
-    List<Club> clubList;
+    List<Gamezone> gamezoneList;
     List<CardView> cardViewList;
     LocalBroadcastManager localBroadcastManager;
 
-    public MyClubAdapter(Context context, List<Club> clubList) {
+
+    public MyGamezoneAdapter( Context context, List<Gamezone> gamezoneList) {
         this.context = context;
-        this.clubList = clubList;
+        this.gamezoneList = gamezoneList;
         cardViewList = new ArrayList<>();
         localBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
 
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View itemView = LayoutInflater.
-                from(context).inflate(R.layout.layout_club,viewGroup,false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.lauout_gamezone, viewGroup, false);
         return new MyViewHolder(itemView);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.txt_club_name.setText(clubList.get(position).getName());
-        holder.txt_club_address.setText(clubList.get(position).getAddress());
-        if(!cardViewList.contains(holder.card_club))
-            cardViewList.add(holder.card_club);
+        holder.txt_gamezone_name.setText(gamezoneList.get(position).getName());
+        if(!cardViewList.contains(holder.card_gamezone))
+            cardViewList.add(holder.card_gamezone);
 
         holder.setiRecyclerItemSelectedListener(new IRecyclerItemSelectedListener() {
             @Override
             public void onItemSelectedListener(View view, int pos) {
-                //цвет для не выбранных белый
-                for(CardView cardView:cardViewList)
+                //Для не выбранных
+                for(CardView cardView : cardViewList) {
                     cardView.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_blue_light));
-                //для выбранных другой цвет
-                holder.card_club.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_purple));
-                //выключаю кнопку вперед
+                }
+
+                //Для  выбранных
+                holder.card_gamezone.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_purple));
+
+                //посылаем локальный сигнал для кнопки next
                 Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
-                intent.putExtra(Common.KEY_CLUB_STORE,clubList.get(pos));
-                intent.putExtra(Common.KEY_STEP,1);
+                intent.putExtra(Common.KEY_GAMEZONE_SELECTED,gamezoneList.get(pos));
+                intent.putExtra(Common.KEY_STEP,2);
                 localBroadcastManager.sendBroadcast(intent);
+
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return clubList.size();
+        return gamezoneList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView txt_club_name,txt_club_address;
-        CardView card_club;
+
+        TextView txt_gamezone_name;
+        CardView card_gamezone;
 
         IRecyclerItemSelectedListener iRecyclerItemSelectedListener;
 
@@ -82,10 +89,10 @@ public class MyClubAdapter extends RecyclerView.Adapter<MyClubAdapter.MyViewHold
         }
 
         public MyViewHolder(@NonNull View itemView) {
+
             super(itemView);
-            card_club = (CardView)itemView.findViewById(R.id.card_club);
-            txt_club_address = (TextView)itemView.findViewById(R.id.txt_club_address);
-            txt_club_name = (TextView)itemView.findViewById(R.id.txt_club_name);
+            card_gamezone = (CardView)itemView.findViewById(R.id.card_gamezone);
+            txt_gamezone_name = (TextView)itemView.findViewById(R.id.txt_gamezone_name);
 
             itemView.setOnClickListener(this);
         }

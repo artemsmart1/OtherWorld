@@ -28,12 +28,15 @@
 
         app:sv_typeface="@font/my"/>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.example.otherworld.Common.NonSwipeViewPager
         android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@+id/layout_button"
         android:layout_below="@+id/step_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp" />
+
     <LinearLayout
         android:id="@+id/layout_button"
         android:orientation="horizontal"
@@ -46,6 +49,7 @@
         <Button
             android:id="@+id/btn_previous_step"
             android:text="Предыдущий шаг"
+            android:enabled="false"
             android:textColor="@color/aWhite"
             android:fontFamily="@font/my"
             android:background="@color/btn_color"
@@ -57,6 +61,7 @@
         <Button
             android:id="@+id/btn_next_step"
             android:text="Следующий шаг"
+            android:enabled="false"
             android:textColor="@color/aWhite"
             android:fontFamily="@font/my"
             android:background="@color/btn_color"

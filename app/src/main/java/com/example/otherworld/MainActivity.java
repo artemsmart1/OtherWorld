@@ -89,32 +89,28 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
         firebaseAuth = FirebaseAuth.getInstance();
-        authStateListener= FirebaseAuth1 ->
+        authStateListener = FirebaseAuth ->
         {
             FirebaseUser user = firebaseAuth.getCurrentUser();
-            if(user != null)//уже залогинин
+            if (user != null)//уже залогинин
             {
-                Intent intent = new Intent(this,HomeActivity.class);
-                intent.putExtra(Common.IS_LOGIN,true);
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.putExtra(Common.IS_LOGIN, true);
                 startActivity(intent);
                 finish();
-            }
-            else
-            {
+            } else {
                 setContentView(R.layout.activity_main);
                 ButterKnife.bind(MainActivity.this);
             }
-        } ;
+        };
 
 
-        super.onCreate(savedInstanceState);
+         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
     }
 
-    private void checkUserFromFirebase (FirebaseUser user)
-    {
-    //    FirebaseMessaging.getInstance().
-    }
+
 }

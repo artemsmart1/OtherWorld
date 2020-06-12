@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Debug;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -62,25 +63,29 @@ public class HomeActivity extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 DocumentReference currentUser = userRef.document(user.getPhoneNumber());
                 currentUser.get()
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()){
-                                DocumentSnapshot userSnapShot = task.getResult();
-                                if(!userSnapShot.exists()){
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()){
+                                        DocumentSnapshot userSnapShot = task.getResult();
+                                        if(!userSnapShot.exists()){
 
-                                    showUpdateDialog(user.getPhoneNumber());
+                                            showUpdateDialog(user.getPhoneNumber());
+                                        }
+                                        else {//Если юзер уже в системе
+
+                                            Common.currentUser = userSnapShot.toObject(User.class);
+                                            bottomNavigationView.setSelectedItemId(R.id.action_home);
+                                        }
+                                        if(dialog.isShowing())
+                                            dialog.dismiss();
+
+                                    }
                                 }
-                                else { //Если юзер уже в системе
-                                    Common.currentUser = userSnapShot.toObject(User.class);
-                                    bottomNavigationView.setSelectedItemId(R.id.action_home);
+                            });
+                        }
+            }
 
-                                }
-                                if(dialog.isShowing())
-                                    dialog.dismiss();
-
-                            }
-                        });
-             }
-        }
 
         //Вид
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -137,6 +142,7 @@ public class HomeActivity extends AppCompatActivity {
                                     dialog.dismiss();
 
                                 Common.currentUser = user;
+                                bottomNavigationView.setSelectedItemId(R.id.action_home);
 
                                 Toast.makeText(HomeActivity.this, "Спасибо", Toast.LENGTH_SHORT).show();
                             }

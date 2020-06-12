@@ -12,7 +12,8 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 

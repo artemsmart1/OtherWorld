@@ -1,14 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:text="Шаг четввертый"
-        android:textColor="@color/aWhite"
-        android:layout_centerInParent="true"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color">
 
-</RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="232dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/finallayout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rounded_dialog"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/my"
+            android:text="Спасибо за то, что выбрали нас"
+            android:textAllCaps="true"
+            android:textColor="@color/aWhite"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/my"
+            android:text="Информация о бронировании"
+            android:layout_marginTop="5dp"
+            android:textAllCaps="true"
+            android:textColor="@color/aWhite"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_baseline_receipt_24" />
+
+            <TextView
+                android:id="@+id/txt_booking_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="12.06.2020 в 16:00"
+                android:fontFamily="@font/my"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/aWhite"
+                android:textSize="14dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_baseline_play_arrow_white_24"/>
+
+            <TextView
+                android:id="@+id/txt_booking_gamezone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="Игровая зона №1"
+                android:fontFamily="@font/my"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/aWhite"
+                android:textSize="14dp" />
+
+
+        </LinearLayout>
+        
+        <View
+            android:layout_marginTop="5dp"
+            android:background="@color/aWhite"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+        <TextView
+            android:id="@+id/txt_club_name"
+            android:text="Клуб на Б.Богаткова"
+            android:textColor="@color/aWhite"
+            android:fontFamily="@font/my"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_baseline_phone_24"/>
+
+            <TextView
+                android:id="@+id/txt_club_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="+7 (923) 250-86-32"
+                android:fontFamily="@font/my"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/aWhite"
+                android:textSize="14dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/ic_baseline_access_time_24"/>
+
+            <TextView
+                android:id="@+id/txt_club_open_hours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="9:00 - 22:00"
+                android:fontFamily="@font/my"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/aWhite"
+                android:textSize="14dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/ic_baseline_location_on_24"/>
+
+            <TextView
+                android:id="@+id/txt_club_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="ТЦ ОМЕГА ул. Бориса Богаткова, 228/1, 3 этаж, 310 офис"
+                android:fontFamily="@font/my"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/aWhite"
+                android:textSize="14dp" />
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:text="Подтвердить"
+            android:textColor="@color/aWhite"
+            android:fontFamily="@font/my"
+            android:textSize="20dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/btn_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+</LinearLayout>

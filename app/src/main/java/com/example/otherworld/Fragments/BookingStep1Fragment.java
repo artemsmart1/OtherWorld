@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.otherworld.Adapter.MyClubAdapter;
+import com.example.otherworld.Common.Common;
 import com.example.otherworld.Common.SpaceItemDecoration;
 import com.example.otherworld.Interface.IAllClubLoadListener;
 import com.example.otherworld.Interface.IBannerLoadListener;
@@ -105,7 +106,7 @@ public class BookingStep1Fragment extends Fragment implements IAllClubLoadListen
                 if(task.isSuccessful())
                 {
                     List<String> list = new ArrayList<>();
-                    list.add("Пожалуйста выберете город");
+                    list.add("Пожалуйста выберете клуб");
                     for(QueryDocumentSnapshot documentSnapshot:task.getResult())
                         list.add(documentSnapshot.getId());
                     iAllClubLoadListener.onAllClubLoadSuccess(list);
@@ -139,6 +140,9 @@ public class BookingStep1Fragment extends Fragment implements IAllClubLoadListen
 
     private void loadBranchOfCity(String cityName) {
         dialog.show();
+
+        Common.city = cityName;
+
         branchRef = FirebaseFirestore.getInstance().collection("Address").document(cityName).collection("Branch");
 
         branchRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -147,10 +151,15 @@ public class BookingStep1Fragment extends Fragment implements IAllClubLoadListen
                 List<Club> list = new ArrayList<>();
                 if (task.isSuccessful())
                 {
-                    for(QueryDocumentSnapshot documentSnapshot:task.getResult())
-                        list.add(documentSnapshot.toObject(Club.class));
+                    for(QueryDocumentSnapshot documentSnapshot:task.getResult()){
+                        Club club = documentSnapshot.toObject(Club.class);
+                        club.setClubId(documentSnapshot.getId());
+                        list.add(club);
+                    }
+
                     iBranchLoadListener.onBranchLoadSuccess(list);
                 }
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -171,7 +180,7 @@ public class BookingStep1Fragment extends Fragment implements IAllClubLoadListen
     public void onBranchLoadSuccess(List<Club> clubList) {
         MyClubAdapter adapter = new MyClubAdapter(getActivity(),clubList);
         recycler_club.setAdapter(adapter);
-        recycler_club.setVisibility(View.VISIBLE);
+        recycler_club.setVisibility(View.VISIBLE );
         dialog.dismiss();
     }
 

@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:text="Шаг третий"
-        android:textColor="@color/aWhite"
-        android:layout_centerInParent="true"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
+    
+    <devs.mulham.horizontalcalendar.HorizontalCalendarView
+        android:id="@+id/calendarView"
+        android:background="@color/bg_color"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_time_slot"
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    
 
-</RelativeLayout>
+</LinearLayout>

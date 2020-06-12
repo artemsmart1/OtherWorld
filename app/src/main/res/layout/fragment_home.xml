@@ -31,15 +31,15 @@
 
         <TextView
             android:id="@+id/txt_user_name"
-            android:text="Артём"
             android:textColor="@color/aWhite"
             android:textSize="22sp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:ignore="DuplicateIds" />
 
         <TextView
-            android:id="@+id/txt_user_name"
-            android:text="В сети"
+            android:id="@+id/txt_member_type"
+            android:text="Посетитель"
             android:textColor="@color/aWhite"
             android:textSize="16sp"
             android:layout_width="match_parent"
