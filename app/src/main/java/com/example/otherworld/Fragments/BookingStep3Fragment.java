@@ -19,7 +19,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.otherworld.Adapter.MyGamezoneAdapter;
 import com.example.otherworld.Adapter.MyTimeSlotAdapter;
 import com.example.otherworld.Common.Common;
 import com.example.otherworld.Common.SpaceItemDecoration;
@@ -152,7 +151,7 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotListener 
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(displayTimeSlot,new IntentFilter(Common.KEY_DISPLAY_TIME_SLOT));
 
-        simpleDateFormat = new SimpleDateFormat("dd_MM_yyyy");
+        simpleDateFormat = new SimpleDateFormat("dd:MM:yyyy");
 
         dailog = new SpotsDialog.Builder().setContext(getContext()).setCancelable(false).build();
 
@@ -190,7 +189,7 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotListener 
         Calendar startDate = Calendar.getInstance();
         startDate.add(Calendar.DATE,0);
         Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.DATE,2);
+        endDate.add(Calendar.DATE,7);
 
         HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(itemView,R.id.calendarView).range(startDate,endDate)
                 .datesNumberOnScreen(1)
@@ -216,7 +215,6 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotListener 
     public void onTimeSlotLoadSuccess(List<TimeSlot> timeSlotList) {
         MyTimeSlotAdapter adapter = new MyTimeSlotAdapter(getContext(),timeSlotList);
         recycler_time_slot.setAdapter(adapter);
-
         dailog.dismiss();
     }
 

@@ -110,7 +110,7 @@ public class BookingActivity extends AppCompatActivity {
         dialog.show();
         if(!TextUtils.isEmpty(Common.city)){
             //  /Address/Новосибирск/Branch/CrdAvxUR7B9lYvVisXvc/Gamezone
-            gamezoneRef = FirebaseFirestore.getInstance().collection("Address").document("Новосибирск")
+            gamezoneRef = FirebaseFirestore.getInstance().collection("Address").document("VR клуб Дурой мир")
                     .collection("Branch").document(clubId).collection("Gamezone");
 
             gamezoneRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

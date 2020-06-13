@@ -1,7 +1,7 @@
 package com.example.otherworld.Interface;
 
-import com.example.otherworld.Model.TimeSlot;
 
+import com.example.otherworld.Model.TimeSlot;
 
 import java.util.List;
 

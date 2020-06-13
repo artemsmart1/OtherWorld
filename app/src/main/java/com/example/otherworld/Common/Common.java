@@ -2,7 +2,6 @@ package com.example.otherworld.Common;
 
 import com.example.otherworld.Model.Club;
 import com.example.otherworld.Model.Gamezone;
-import com.example.otherworld.Model.TimeSlot;
 import com.example.otherworld.Model.User;
 
 import java.text.SimpleDateFormat;

@@ -3,6 +3,7 @@ package com.example.otherworld;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.provider.FirebaseInitProvider;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -89,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
 
         providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
         firebaseAuth = FirebaseAuth.getInstance();

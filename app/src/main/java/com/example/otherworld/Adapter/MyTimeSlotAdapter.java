@@ -54,18 +54,16 @@ public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.My
         holder.txt_time_slot.setText(new StringBuilder(Common.convertTimeSlotToString(position)).toString());
         if(timeSlotList.size() == 0)//если все свободно
         {
-            holder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_blue_light));
             holder.txt_time_slot_description.setText("Свободно");
             holder.txt_time_slot_description.setTextColor(context.getResources().getColor(android.R.color.black));
             holder.txt_time_slot.setTextColor(context.getResources().getColor(android.R.color.white));
-
-
+            holder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_blue_light));
         }
         else //если занято
         {
             for(TimeSlot slotValue:timeSlotList)//меняю цвет
             {
-                int slot = Integer.parseInt(slotValue.toString());
+                int slot = Integer.parseInt(slotValue.getSlot().toString());
                 if(slot == position)
                 {
                     holder.card_time_slot.setTag(Common.DISABLE_TAG);
@@ -92,7 +90,7 @@ public class MyTimeSlotAdapter extends RecyclerView.Adapter<MyTimeSlotAdapter.My
                 }
                 holder.card_time_slot.setCardBackgroundColor(context.getResources().getColor(android.R.color.holo_purple));
 
-                //теперь послыю сигнал о включении кнопки ВПЕРЕД
+                //теперь пошлю сигнал о включении кнопки ВПЕРЕД
                 Intent intent = new Intent(Common.KEY_ENABLE_BUTTON_NEXT);
                 intent.putExtra(Common.KEY_TIME_SLOT,position);
                 intent.putExtra(Common.KEY_STEP,3);
