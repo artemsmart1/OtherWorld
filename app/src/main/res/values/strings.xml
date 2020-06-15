@@ -1,10 +1,14 @@
 <resources>
-    <string name="app_name">OtherWorld</string>
+    <string name="app_name">Другой мир VR</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="Your_name">Ваше имя</string>
     <string name="Your_address">Ваш адрес</string>
     <string name="Update">Обновить данные</string>
+    <string name="address_bullet">\u2022 Адрес: </string>
+    <string name="time_bullet">\u2022 Время: </string>
+    <string name="gamezone_bullet">\u2022 Игровая зона: </string>
+    <string name="bullet">\u2022</string>
 
 </resources>

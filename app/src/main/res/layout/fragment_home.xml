@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
@@ -51,147 +52,297 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="4"
-        android:padding="8dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <androidx.cardview.widget.CardView
-        android:id="@+id/card_view_booking"
-        android:layout_marginRight="8dp"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:cardCornerRadius="8dp"
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content">
         <LinearLayout
-            android:background="@color/btn_color"
-            android:orientation="vertical"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:src="@drawable/ic_baseline_assignment_24"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="50sp"
-                android:layout_height="50dp"/>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_booking"
+                android:layout_marginRight="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="8dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:background="@color/btn_color"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:text="Бронирование"
-                android:fontFamily="@font/my"
-                android:layout_gravity="center_horizontal"
-                android:textSize="10dp"
-                android:textColor="@color/aWhite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:src="@drawable/ic_baseline_assignment_24"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="50sp"
+                        android:layout_height="50dp"/>
+
+                    <TextView
+                        android:text="Бронирование"
+                        android:fontFamily="@font/my"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="10dp"
+                        android:textColor="@color/aWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_cart"
+                android:layout_marginRight="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="8dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:background="@color/btn_color"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    
+                    <com.nex3z.notificationbadge.NotificationBadge
+                        android:id="@+id/notification_badge"
+                        android:layout_toRightOf="@+id/txt_cart_title"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+
+                        />
+
+
+
+                    <ImageView
+                        android:id="@+id/cart_icon"
+                        android:src="@drawable/ic_baseline_shopping_cart_black_24"
+
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="50sp"
+                        android:layout_height="50dp"/>
+
+                    <TextView
+                        android:layout_below="@+id/cart_icon"
+                        android:id="@+id/txt_cart_title"
+                        android:text="Корзина"
+                        android:fontFamily="@font/my"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="10dp"
+                        android:textColor="@color/aWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_history"
+                android:layout_marginRight="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="8dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:background="@color/btn_color"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_history_24"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="50sp"
+                        android:layout_height="50dp"/>
+
+                    <TextView
+                        android:text="История заказов"
+                        android:fontFamily="@font/my"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="10dp"
+                        android:textColor="@color/aWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view_notification"
+                android:layout_marginRight="8dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="8dp"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:background="@color/btn_color"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/ic_baseline_notifications_active_24"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="50sp"
+                        android:layout_height="50dp"/>
+
+                    <TextView
+                        android:text="Уведомления"
+                        android:fontFamily="@font/my"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="10dp"
+                        android:textColor="@color/aWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+
 
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
+        
         <androidx.cardview.widget.CardView
-            android:id="@+id/card_view_cart"
+            android:id="@+id/card_booking_info"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/btn_color_2"
+            android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             app:cardCornerRadius="8dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <LinearLayout
-                android:background="@color/btn_color"
                 android:orientation="vertical"
+                android:padding="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_assignment__white_24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    
+                    <TextView
+                        android:text="Инфоормация о бронировании"
+                        android:textColor="@color/aWhite"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="8dp"
+                        android:textStyle="bold"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/my"
 
-                <ImageView
-                    android:src="@drawable/ic_baseline_shopping_cart_24"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="50sp"
-                    android:layout_height="50dp"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    
+                </LinearLayout>
 
-                <TextView
-                    android:text="Корзина"
-                    android:fontFamily="@font/my"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="10dp"
-                    android:textColor="@color/aWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/address_bullet"
+                        android:textColor="@color/aWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txt_club_address"
+                        android:text="Адрес клуба"
+                        android:textColor="@color/aWhite"
+                        android:fontFamily="@font/my"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/time_bullet"
+                        android:textColor="@color/aWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txt_time"
+                        android:text="Время"
+                        android:fontFamily="@font/my"
+                        android:textColor="@color/aWhite"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/gamezone_bullet"
+                        android:textColor="@color/aWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txt_club_gamezone"
+                        android:text="Игровая зона №1"
+                        android:fontFamily="@font/my"
+                        android:textColor="@color/aWhite"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/bullet"
+                        android:textColor="@color/aWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txt_time_remain"
+                        android:text="Время"
+                        android:fontFamily="@font/my"
+                        android:textColor="@color/aWhite"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
 
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_view_history"
-            android:layout_marginRight="8dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:cardCornerRadius="8dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:background="@color/btn_color"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:src="@drawable/ic_baseline_history_24"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="50sp"
-                    android:layout_height="50dp"/>
-
-                <TextView
-                    android:text="История заказов"
-                    android:fontFamily="@font/my"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="10dp"
-                    android:textColor="@color/aWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_view_notification"
-            android:layout_marginRight="8dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:cardCornerRadius="8dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:background="@color/btn_color"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:src="@drawable/ic_baseline_notifications_active_24"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="50sp"
-                    android:layout_height="50dp"/>
-
-                <TextView
-                    android:text="Уведомления"
-                    android:fontFamily="@font/my"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="10dp"
-                    android:textColor="@color/aWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-
-
 
 
     </LinearLayout>

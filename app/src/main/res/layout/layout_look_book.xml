@@ -17,7 +17,9 @@
             android:id="@+id/image_look_book"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:scaleType="matrix" />
+
+            android:scaleType="centerCrop"
+            />
 
 
     </androidx.cardview.widget.CardView>

@@ -4,6 +4,7 @@
         android:icon="@drawable/ic_home_home_24"
         android:title="Главная"/>
     <item android:id="@+id/action_playing"
-        android:icon="@drawable/ic_baseline_play_arrow_24"
-        android:title="Наши игры"/>
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="Наши товары"/>
+
 </menu>

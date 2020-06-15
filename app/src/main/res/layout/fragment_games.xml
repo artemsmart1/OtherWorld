@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@color/bg_color"
+    tools:context=".Fragments.GamesFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragments.GamesFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <View
+        android:background="@color/aWhite"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="2dp"/>
 
-        android:text="Страница игр" />
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group"
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_coupon"
+            android:text="Сертификаты"
+            app:chipBackgroundColor="@color/btn_color"
+            android:textColor="@color/aWhite"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.chip.ChipGroup>
+    
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:background="@color/aWhite"
+        android:layout_height="2dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

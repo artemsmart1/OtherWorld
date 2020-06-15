@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,22 +21,30 @@ import com.example.otherworld.Adapter.HomeSliderAdapter;
 import com.example.otherworld.Adapter.LookbookAdapter;
 import com.example.otherworld.BookingActivity;
 import com.example.otherworld.Common.Common;
+import com.example.otherworld.Database.CartDatabase;
+import com.example.otherworld.Database.DatabaseUtits;
 import com.example.otherworld.Interface.IBannerLoadListener;
+import com.example.otherworld.Interface.IBookinginfoLoadListener;
+import com.example.otherworld.Interface.ICountItemInCartListener;
 import com.example.otherworld.Interface.ILookbookLoadListener;
 import com.example.otherworld.Model.Banner;
+import com.example.otherworld.Model.BookingInformation;
 import com.example.otherworld.R;
 import com.example.otherworld.Service.PicassoImageLoadingService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,55 +53,15 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import ss.com.bannerslider.Slider;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HomeFragment extends Fragment implements IBannerLoadListener, ILookbookLoadListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-        bannerRef = FirebaseFirestore.getInstance().collection("Banner");
-        lookbookRef = FirebaseFirestore.getInstance().collection("Lookbook");
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+public class HomeFragment extends Fragment implements IBannerLoadListener, ILookbookLoadListener, IBookinginfoLoadListener, ICountItemInCartListener {
 
     private Unbinder unbinder;
+
+    CartDatabase cartDatabase;
+
+    @BindView(R.id.notification_badge)
+    NotificationBadge notificationBadge;
 
     @BindView(R.id.layout_user_information)
     LinearLayout layout_user_information;
@@ -106,17 +75,90 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
     @BindView(R.id.recycler_bool_look)
     RecyclerView recycler_look_book;
 
+    @BindView(R.id.card_booking_info)
+    CardView card_booking_info;
+
+    @BindView(R.id.txt_club_address)
+    TextView txt_club_address;
+
+    @BindView(R.id.txt_club_gamezone)
+    TextView txt_club_gamezone;
+
+    @BindView(R.id.txt_time)
+    TextView txt_time;
+
+    @BindView(R.id.txt_time_remain)
+    TextView txt_time_remain;
+
+
     @OnClick(R.id.card_view_booking)
     void booking(){
         startActivity(new Intent(getActivity(), BookingActivity.class));
     }
 
+    public HomeFragment() {
+        bannerRef = FirebaseFirestore.getInstance().collection("Banner");
+        lookbookRef = FirebaseFirestore.getInstance().collection("Lookbook");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        countCartItem();
+        loadUserBooking();
+    }
 
     //а теперь FireStore
     CollectionReference bannerRef,lookbookRef;
     // Интерфэйс
     IBannerLoadListener iBannerLoadListener;
     ILookbookLoadListener iLookbookLoadListener;
+    IBookinginfoLoadListener iBookinginfoLoadListener;
+
+    private void loadUserBooking() {
+        CollectionReference userBooking = FirebaseFirestore.getInstance().collection("User").document(Common.currentUser.getPhoneNumber()).collection("Booking");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE,0);
+        calendar.set(Calendar.HOUR_OF_DAY,0);
+        calendar.set(Calendar.MINUTE,0);
+
+        Timestamp toDayTimeStamp = new Timestamp(calendar.getTime());
+
+        userBooking
+                .whereGreaterThanOrEqualTo("timestamp",toDayTimeStamp)
+                .whereEqualTo("done",false)
+                .limit(1)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful())
+                        {
+                            if(task.getResult().isEmpty())
+                            {
+                                for(QueryDocumentSnapshot queryDocumentSnapshot:task.getResult())
+                                {
+                                    BookingInformation bookingInformation = queryDocumentSnapshot.toObject(BookingInformation.class);
+                                    iBookinginfoLoadListener.onBookinginfoSuccess(bookingInformation);
+                                    break;
+                                }
+
+                            }
+                            else
+                                iBookinginfoLoadListener.onBookinginfoLoadEmpty();
+
+                        }
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                iBookinginfoLoadListener.onBookinginfoFailed(e.getMessage());
+            }
+        });
+    }
+
 
 
     @Override
@@ -125,22 +167,31 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this,view);
+        cartDatabase = CartDatabase.getInstance(getContext());
 
         //Init
         Slider.init(new PicassoImageLoadingService());
         iBannerLoadListener = this;
         iLookbookLoadListener = this;
+        iBookinginfoLoadListener = this;
 
 
         //Check is logged
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null){
+            layout_user_information.setVisibility(View.VISIBLE);
             setUserInformation();
             loadBanner();
             loadLookBook();
+            loadUserBooking();
+            countCartItem();
         }
 
         return view;
+    }
+
+    private void countCartItem() {
+        DatabaseUtits.countItemInCart(cartDatabase,this);
     }
 
     private void loadLookBook() {
@@ -189,7 +240,10 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
 
     private void setUserInformation() {
         layout_user_information.setVisibility(View.VISIBLE);
-        txt_user_name.setText(Common.currentUser.getName());
+        try{
+            txt_user_name.setText(Common.currentUser.getName());
+        }catch (Exception e){ }
+
     }
 
 
@@ -213,5 +267,31 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
     @Override
     public void onLookbookLoadFailed(String message) {
         Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void onBookinginfoLoadEmpty() {
+        card_booking_info.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBookinginfoSuccess(BookingInformation bookingInformation) {
+        txt_club_address.setText(bookingInformation.getClubAddress());
+        txt_club_gamezone.setText(bookingInformation.getGamezoneId());
+        txt_time.setText(bookingInformation.getTime());
+        String dateRemain = DateUtils.getRelativeTimeSpanString(Long.valueOf(bookingInformation.getTimestamp().toDate().getTime()),
+                Calendar.getInstance().getTimeInMillis(),0).toString();
+        txt_time_remain.setText(dateRemain);
+    }
+
+    @Override
+    public void onBookinginfoFailed(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCartItemCountSuccess(int count) {
+        notificationBadge.setText(String.valueOf(count));
     }
 }

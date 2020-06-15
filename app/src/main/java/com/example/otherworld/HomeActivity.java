@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Debug;
+import android.os.PersistableBundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.example.otherworld.Fragments.HomeFragment;
 import com.example.otherworld.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -43,6 +45,11 @@ public class HomeActivity extends AppCompatActivity {
     CollectionReference userRef;
 
     AlertDialog dialog;
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +119,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void showUpdateDialog(final String phoneNumber) {
 
-
         //Создаю диалог
         bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setTitle("Последний шаг");
@@ -134,9 +140,9 @@ public class HomeActivity extends AppCompatActivity {
                         edt_address.getText().toString(), phoneNumber);
                 userRef.document(phoneNumber)
                         .set(user)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onComplete(@NonNull Task<Void> task) {
+                            public void onSuccess(Void aVoid) {
                                 bottomSheetDialog.dismiss();
                                 if(dialog.isShowing())
                                     dialog.dismiss();

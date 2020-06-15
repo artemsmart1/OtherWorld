@@ -25,7 +25,7 @@ public class Common {
     public static Gamezone currentGamezone;
     public static User currentUser;
     public static int currentTimeSlot = -1;
-    public static Calendar currentDate = Calendar.getInstance();
+    public static Calendar bookingDate = Calendar.getInstance();
     public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd:MM:yyyy");
 
     public static String convertTimeSlotToString(int slot) {
@@ -62,5 +62,9 @@ public class Common {
         }
 
 
+    }
+
+    public static String formatShoppingItemName(String name) {
+        return name;
     }
 }

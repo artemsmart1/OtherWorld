@@ -49,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_login)
     void login_user()
     {
-        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(),APP_REQEST_CODE);
+        startActivityForResult(AuthUI.getInstance().
+                createSignInIntentBuilder().
+                setAvailableProviders(providers).build(),APP_REQEST_CODE);
 
     }
 
@@ -75,6 +77,60 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = firebaseAuth1 -> {
+            FirebaseUser user = firebaseAuth1.getCurrentUser();
+            if(user != null)
+            {
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                intent.putExtra(Common.IS_LOGIN, true);
+                startActivity(intent);
+                finish();
+            }
+
+        };
+
+        Dexter.withActivity(this).withPermissions(new String[]{
+                Manifest.permission.READ_CALENDAR,
+                Manifest.permission.WRITE_CALENDAR
+        }).withListener(new MultiplePermissionsListener() {
+            @Override
+            public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+
+                firebaseAuth = FirebaseAuth.getInstance();
+                authStateListener = FirebaseAuth ->
+                {
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+                    if (user != null)//уже залогинин
+                    {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        intent.putExtra(Common.IS_LOGIN, true);
+                        startActivity(intent);
+                        finish();
+
+                    } else {
+                        setContentView(R.layout.activity_main);
+                        ButterKnife.bind(MainActivity.this);
+                    }
+                };
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+
+            }
+        }).check();
+
+        super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_main);
+    }
+
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == APP_REQEST_CODE)
@@ -83,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK)
             {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
             }
             else
                 {
@@ -91,32 +148,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        
-
-        providers = Arrays.asList(new AuthUI.IdpConfig.PhoneBuilder().build());
-        firebaseAuth = FirebaseAuth.getInstance();
-        authStateListener = FirebaseAuth ->
-        {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            if (user != null)//уже залогинин
-            {
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra(Common.IS_LOGIN, true);
-                startActivity(intent);
-                finish();
-            } else {
-                setContentView(R.layout.activity_main);
-                ButterKnife.bind(MainActivity.this);
-            }
-        };
-
-
-         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
     }
 
 

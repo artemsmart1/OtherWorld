@@ -200,9 +200,9 @@ public class BookingStep3Fragment extends Fragment implements ITimeSlotListener 
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
-                if (Common.currentDate.getTimeInMillis() != date.getTimeInMillis())
+                if (Common.bookingDate.getTimeInMillis() != date.getTimeInMillis())
                 {
-                   Common.currentDate = date;
+                   Common.bookingDate = date;
                     loadAvailableTimeSlotOfGamezone(Common.currentGamezone.getGamezoneId(),
                             simpleDateFormat.format(date.getTime()));
                 }
