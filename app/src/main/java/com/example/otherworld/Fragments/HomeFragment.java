@@ -21,8 +21,7 @@ import com.example.otherworld.Adapter.HomeSliderAdapter;
 import com.example.otherworld.Adapter.LookbookAdapter;
 import com.example.otherworld.BookingActivity;
 import com.example.otherworld.Common.Common;
-import com.example.otherworld.Database.CartDatabase;
-import com.example.otherworld.Database.DatabaseUtits;
+
 import com.example.otherworld.Interface.IBannerLoadListener;
 import com.example.otherworld.Interface.IBookinginfoLoadListener;
 import com.example.otherworld.Interface.ICountItemInCartListener;
@@ -58,10 +57,9 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
 
     private Unbinder unbinder;
 
-    CartDatabase cartDatabase;
 
-    @BindView(R.id.notification_badge)
-    NotificationBadge notificationBadge;
+
+
 
     @BindView(R.id.layout_user_information)
     LinearLayout layout_user_information;
@@ -104,7 +102,7 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
     @Override
     public void onResume() {
         super.onResume();
-        countCartItem();
+
         loadUserBooking();
     }
 
@@ -167,7 +165,7 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this,view);
-        cartDatabase = CartDatabase.getInstance(getContext());
+
 
         //Init
         Slider.init(new PicassoImageLoadingService());
@@ -184,15 +182,13 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
             loadBanner();
             loadLookBook();
             loadUserBooking();
-            countCartItem();
+
         }
 
         return view;
     }
 
-    private void countCartItem() {
-        DatabaseUtits.countItemInCart(cartDatabase,this);
-    }
+
 
     private void loadLookBook() {
         lookbookRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -280,9 +276,7 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
         txt_club_address.setText(bookingInformation.getClubAddress());
         txt_club_gamezone.setText(bookingInformation.getGamezoneId());
         txt_time.setText(bookingInformation.getTime());
-        String dateRemain = DateUtils.getRelativeTimeSpanString(Long.valueOf(bookingInformation.getTimestamp().toDate().getTime()),
-                Calendar.getInstance().getTimeInMillis(),0).toString();
-        txt_time_remain.setText(dateRemain);
+
     }
 
     @Override
@@ -292,6 +286,6 @@ public class HomeFragment extends Fragment implements IBannerLoadListener, ILook
 
     @Override
     public void onCartItemCountSuccess(int count) {
-        notificationBadge.setText(String.valueOf(count));
+
     }
 }

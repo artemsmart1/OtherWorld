@@ -64,145 +64,66 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view_booking"
+                android:layout_width="198dp"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                app:cardCornerRadius="8dp"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                app:cardCornerRadius="8dp">
+
                 <LinearLayout
-                    android:background="@color/btn_color"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/btn_color"
+                    android:orientation="vertical">
 
                     <ImageView
-                        android:src="@drawable/ic_baseline_assignment_24"
-                        android:layout_gravity="center_horizontal"
                         android:layout_width="50sp"
-                        android:layout_height="50dp"/>
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_baseline_assignment_24" />
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/my"
                         android:text="Бронирование"
-                        android:fontFamily="@font/my"
-                        android:layout_gravity="center_horizontal"
-                        android:textSize="10dp"
                         android:textColor="@color/aWhite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="10dp" />
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_view_cart"
-                android:layout_marginRight="8dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                app:cardCornerRadius="8dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-                <RelativeLayout
-                    android:background="@color/btn_color"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    
-                    <com.nex3z.notificationbadge.NotificationBadge
-                        android:id="@+id/notification_badge"
-                        android:layout_toRightOf="@+id/txt_cart_title"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-
-                        />
-
-
-
-                    <ImageView
-                        android:id="@+id/cart_icon"
-                        android:src="@drawable/ic_baseline_shopping_cart_black_24"
-
-                        android:layout_centerHorizontal="true"
-                        android:layout_width="50sp"
-                        android:layout_height="50dp"/>
-
-                    <TextView
-                        android:layout_below="@+id/cart_icon"
-                        android:id="@+id/txt_cart_title"
-                        android:text="Корзина"
-                        android:fontFamily="@font/my"
-                        android:layout_centerHorizontal="true"
-                        android:textSize="10dp"
-                        android:textColor="@color/aWhite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </RelativeLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_view_history"
-                android:layout_marginRight="8dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                app:cardCornerRadius="8dp"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:background="@color/btn_color"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:src="@drawable/ic_baseline_history_24"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="50sp"
-                        android:layout_height="50dp"/>
-
-                    <TextView
-                        android:text="История заказов"
-                        android:fontFamily="@font/my"
-                        android:layout_gravity="center_horizontal"
-                        android:textSize="10dp"
-                        android:textColor="@color/aWhite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view_notification"
+                android:layout_width="194dp"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                app:cardCornerRadius="8dp"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
+                app:cardCornerRadius="8dp">
+
                 <LinearLayout
-                    android:background="@color/btn_color"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/btn_color"
+                    android:orientation="vertical">
 
                     <ImageView
-                        android:src="@drawable/ic_baseline_notifications_active_24"
-                        android:layout_gravity="center_horizontal"
                         android:layout_width="50sp"
-                        android:layout_height="50dp"/>
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/ic_baseline_notifications_active_24" />
 
                     <TextView
-                        android:text="Уведомления"
-                        android:fontFamily="@font/my"
-                        android:layout_gravity="center_horizontal"
-                        android:textSize="10dp"
-                        android:textColor="@color/aWhite"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:fontFamily="@font/my"
+                        android:text="Уведомления"
+                        android:textColor="@color/aWhite"
+                        android:textSize="10dp" />
 
                 </LinearLayout>
 

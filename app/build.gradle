@@ -58,6 +58,13 @@ dependencies {
     annotationProcessor 'android.arch.persistence.room:compiler:2.2.5'
     implementation 'com.nex3z:notification-badge:1.0.2'
 
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
+
+
+
      coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.5'
 
 

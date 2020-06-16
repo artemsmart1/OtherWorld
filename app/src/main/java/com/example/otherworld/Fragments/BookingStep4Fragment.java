@@ -79,22 +79,12 @@ public class BookingStep4Fragment extends Fragment {
 
         dialog.show();
 
-        String startTime = Common.convertTimeSlotToString(Common.currentTimeSlot);
-        String[] convertTime = startTime.split("-");
-        String[] startTimeConvert = convertTime[0].split(":");
-        int startHourInt = Integer.parseInt(startTimeConvert[0].trim());
-        int startMinInt = Integer.parseInt(startTimeConvert[1].trim());
 
-        Calendar bookingDateWithourHouse = Calendar.getInstance();
-        bookingDateWithourHouse.setTimeInMillis(Common.bookingDate.getTimeInMillis());
-        bookingDateWithourHouse.set(Calendar.HOUR_OF_DAY,startHourInt);
-        bookingDateWithourHouse.set(Calendar.MINUTE,startMinInt);
 
-        Timestamp timestamp = new Timestamp(bookingDateWithourHouse.getTime());
+
 
         BookingInformation bookingInformation = new BookingInformation();
-        bookingInformation.setTimestamp(timestamp);
-        bookingInformation.setDone(false);
+
         bookingInformation.setGamezoneId(Common.currentGamezone.getGamezoneId());
         bookingInformation.setCustomerName(Common.currentUser.getName());
         bookingInformation.setCustomerPhone(Common.currentUser.getPhoneNumber());
@@ -102,7 +92,7 @@ public class BookingStep4Fragment extends Fragment {
         bookingInformation.setClubAddress(Common.currentClub.getAddress());
         bookingInformation.setClubName(Common.currentClub.getName());
         bookingInformation.setTime(new StringBuilder(Common.convertTimeSlotToString(Common.currentTimeSlot))
-                .append("в").append(simpleDateFormat.format(bookingDateWithourHouse.getTime())).toString());
+                .append("в").append(simpleDateFormat.format(Common.bookingDate.getTime())).toString());
         bookingInformation.setSlot(Long.valueOf(Common.currentTimeSlot));
 
         DocumentReference bookingDate = FirebaseFirestore.getInstance()
@@ -143,7 +133,7 @@ public class BookingStep4Fragment extends Fragment {
                             if(dialog.isShowing())
                                 dialog.dismiss();
 
-                            addToCalendar(Common.bookingDate,Common.convertTimeSlotToString(Common.currentTimeSlot));
+
                             resetStaticData();
                             getActivity().finish();
                             Toast.makeText(getContext(), "Успешно", Toast.LENGTH_SHORT).show();
@@ -171,101 +161,9 @@ public class BookingStep4Fragment extends Fragment {
         });
     }
 
-    private void addToCalendar(Calendar bookingDate, String startDate) {
-        String startTime = Common.convertTimeSlotToString(Common.currentTimeSlot);
-        String[] convertTime = startTime.split("-");
-        String[] startTimeConvert = convertTime[0].split(":");
-        int startHourInt = Integer.parseInt(startTimeConvert[0].trim());
-        int startMinInt = Integer.parseInt(startTimeConvert[1].trim());
 
 
-        String[] endTimeConvert = convertTime[1].split(":");
-        int endHourInt = Integer.parseInt(endTimeConvert[0].trim());
-        int endMinInt = Integer.parseInt(endTimeConvert[1].trim());
 
-        Calendar startEvent = Calendar.getInstance();
-        startEvent.setTimeInMillis(bookingDate.getTimeInMillis());
-        startEvent.set(Calendar.HOUR_OF_DAY,startHourInt);
-        startEvent.set(Calendar.MINUTE,startMinInt);
-
-        Calendar endEvent = Calendar.getInstance();
-        endEvent.setTimeInMillis(bookingDate.getTimeInMillis());
-        endEvent.set(Calendar.HOUR_OF_DAY,endHourInt);
-        endEvent.set(Calendar.MINUTE,endMinInt);
-
-        SimpleDateFormat calendarDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-
-        String startEventTime = calendarDateFormat.format(startEvent.getTime());
-        String endEventTime = calendarDateFormat.format(endEvent.getTime());
-
-        addToDeviceCalendar(startEventTime,endEventTime,"Другой мир VR клуб",new StringBuilder("Адрес: ").append(Common.currentClub.getAddress()).toString());
-    }
-
-    private void addToDeviceCalendar(String startEventTime, String endEventTime, String title,  String location) {
-        SimpleDateFormat calendarDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        try {
-            Date start = calendarDateFormat.parse(startEventTime);
-            Date end = calendarDateFormat.parse(endEventTime);
-
-            ContentValues event = new ContentValues();
-
-            event.put(CalendarContract.Events.CALENDAR_ID,getCalendar(getContext()));
-            event.put(CalendarContract.Events.TITLE,title);
-          //  event.put(CalendarContract.Events.DESCRIPTION,description);
-            event.put(CalendarContract.Events.EVENT_LOCATION,location);
-
-            // time
-            event.put(CalendarContract.Events.DTSTART,start.getTime());
-            event.put(CalendarContract.Events.DTEND,end.getTime());
-            event.put(CalendarContract.Events.ALL_DAY,0);
-            event.put(CalendarContract.Events.HAS_ALARM,1);
-
-            String timeZone = TimeZone.getDefault().getID();
-            event.put(CalendarContract.Events.EVENT_TIMEZONE,timeZone);
-
-            Uri calendars;
-            if(Build.VERSION.SDK_INT >= 8)
-                calendars = Uri.parse("content://com.android.calendar/calendars");
-            else
-                calendars = Uri.parse("content://calendar/events");
-
-            getActivity().getContentResolver().insert(calendars,event);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    private String getCalendar(Context context) {
-        String gmailIdCalendar = "";
-        String projection[] = {"_id","calendar_displayName"};
-        Uri calendars = Uri.parse("content://com.android.calendar/calendars");
-
-        ContentResolver contentResolver = context.getContentResolver();
-        Cursor managedCursor = contentResolver.query(calendars,projection,null,null,null);
-
-        if(managedCursor.moveToFirst())
-        {
-            String calName;
-            int nameCol = managedCursor.getColumnIndex(projection[1]);
-            int idCol = managedCursor.getColumnIndex(projection[0]);
-            do
-                {
-                    calName = managedCursor.getString(nameCol);
-                    if(calName.contains("@gmail.com"))
-                    {
-                        gmailIdCalendar = managedCursor.getString(idCol);
-                        break;
-                    }
-
-                }while (managedCursor.moveToNext());
-            managedCursor.close();
-        }
-
-        return gmailIdCalendar;
-    }
 
     private void resetStaticData() {
         Common.step = 0;
